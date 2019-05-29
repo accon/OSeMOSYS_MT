@@ -1,0 +1,40 @@
+
+#
+#	To run the model, copy and paste the following line into the command prompt, after replacing ...FILEPATH... with your folder structure.
+#
+# Links didn't work. See original utopia.txt-file for complete comments
+#
+#  Alternatively, install GUSEK (http://gusek.sourceforge.net/gusek.html) and run the model within this integrated development environment (IDE). 
+#  To do so, open the .dat file within GUSEK and select "Use External .dat file" from the Options menu. Then go to the .mod file and select the "Go" icon or press F5.
+#
+#	Based on UTOPIA version 5: BASE - Utopia Base Model	
+#	The following are DEFAULT units, but they can be changed by users to their comfort. When doing so, users are advised to check the consistency of their choices though.																					
+#	Energy and demands in PJ/a																							
+#	Power plants in GW																							
+#	Investment and Fixed O&M Costs: Power plant: Million $ / GW (//$/kW)																							
+#	Other plant costs: Million $/PJ/a																							
+#	Variable O&M (& Import) Costs: Million $ / PJ (//$/GJ)																							
+#
+#****************************************		
+
+param AnnualExogenousEmission			default	0		:=	; 
+param AnnualEmissionLimit				default	999999999	:=	;
+param ModelPeriodExogenousEmission	default	0		:=	;
+param ModelPeriodEmissionLimit		default	999999999	:=	;
+
+#**************************************** 
+ 
+
+set EMISSION	:=	co2	;
+set TECHNOLOGY	:=	wind_onshore	PV	steam_turbine	ocgt	ccgt	hydro_ror	hydro_stor	hydro_dam	supply_natural_gas	backup_electricity	;
+set FUEL	:=	natural_gas	electricity	;
+set YEAR	:=	2010	2015	2020	2025	2030	;
+set TIMESLICE	:=	Sp1	Sp2	Sp3	Sp4	Sp5	Sp6	Sp7	Sp8	Sp9	Sp10	Sp11	Sp12	Sp13	Sp14	Sp15	Sp16	Sp17	Sp18	Sp19	Sp20	Sp21	Sp22	Sp23	Sp24	Su1	Su2	Su3	Su4	Su5	Su6	Su7	Su8	Su9	Su10	Su11	Su12	Su13	Su14	Su15	Su16	Su17	Su18	Su19	Su20	Su21	Su22	Su23	Su24	Fa1	Fa2	Fa3	Fa4	Fa5	Fa6	Fa7	Fa8	Fa9	Fa10	Fa11	Fa12	Fa13	Fa14	Fa15	Fa16	Fa17	Fa18	Fa19	Fa20	Fa21	Fa22	Fa23	Fa24	Wi1	Wi2	Wi3	Wi4	Wi5	Wi6	Wi7	Wi8	Wi9	Wi10	Wi11	Wi12	Wi13	Wi14	Wi15	Wi16	Wi17	Wi18	Wi19	Wi20	Wi21	Wi22	Wi23	Wi24	;
+set MODE_OF_OPERATION	:=	1	2	;
+set REGION	:=	TUNISIA_A	TUNISIA_B	;
+set SEASON	:=	1	2	3	4	;
+set DAYTYPE	:=	1	;
+set DAILYTIMEBRACKET	:=	1	2	3	4	;
+set STORAGE	:=	Hydro-Storage	; 
+
+

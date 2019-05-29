@@ -1,0 +1,1119 @@
+
+#
+#	To run the model, copy and paste the following line into the command prompt, after replacing ...FILEPATH... with your folder structure.
+#
+# Links didn't work. See original utopia.txt-file for complete comments
+#
+#  Alternatively, install GUSEK (http://gusek.sourceforge.net/gusek.html) and run the model within this integrated development environment (IDE). 
+#  To do so, open the .dat file within GUSEK and select "Use External .dat file" from the Options menu. Then go to the .mod file and select the "Go" icon or press F5.
+#
+#	Based on UTOPIA version 5: BASE - Utopia Base Model	
+#	The following are DEFAULT units, but they can be changed by users to their comfort. When doing so, users are advised to check the consistency of their choices though.																					
+#	Energy and demands in PJ/a																							
+#	Power plants in GW																							
+#	Investment and Fixed O&M Costs: Power plant: Million $ / GW (//$/kW)																							
+#	Other plant costs: Million $/PJ/a																							
+#	Variable O&M (& Import) Costs: Million $ / PJ (//$/GJ)																							
+#
+#****************************************		
+
+param AnnualExogenousEmission			default	0		:=	; 
+param AnnualEmissionLimit				default	999999999	:=	;
+param ModelPeriodExogenousEmission	default	0		:=	;
+param ModelPeriodEmissionLimit		default	999999999	:=	;
+
+#**************************************** 
+ 
+
+set EMISSION	:=	co2	;
+set TECHNOLOGY	:=	wind_onshore	PV	steam_turbine	ocgt	ccgt	hydro_ror	hydro_stor	hydro_dam	supply_natural_gas	backup_electricity	;
+set FUEL	:=	natural_gas	electricity	;
+set YEAR	:=	2010	2015	2020	2025	2030	;
+set TIMESLICE	:=	Sp1	Sp2	Sp3	Sp4	Sp5	Sp6	Sp7	Sp8	Sp9	Sp10	Sp11	Sp12	Sp13	Sp14	Sp15	Sp16	Sp17	Sp18	Sp19	Sp20	Sp21	Sp22	Sp23	Sp24	Su1	Su2	Su3	Su4	Su5	Su6	Su7	Su8	Su9	Su10	Su11	Su12	Su13	Su14	Su15	Su16	Su17	Su18	Su19	Su20	Su21	Su22	Su23	Su24	Fa1	Fa2	Fa3	Fa4	Fa5	Fa6	Fa7	Fa8	Fa9	Fa10	Fa11	Fa12	Fa13	Fa14	Fa15	Fa16	Fa17	Fa18	Fa19	Fa20	Fa21	Fa22	Fa23	Fa24	Wi1	Wi2	Wi3	Wi4	Wi5	Wi6	Wi7	Wi8	Wi9	Wi10	Wi11	Wi12	Wi13	Wi14	Wi15	Wi16	Wi17	Wi18	Wi19	Wi20	Wi21	Wi22	Wi23	Wi24	Du;
+set MODE_OF_OPERATION	:=	1	2	;
+set REGION	:=	TUNISIA	;
+set SEASON	:=	1	2	3	4	;
+set DAYTYPE	:=	1	;
+set DAILYTIMEBRACKET	:=	1	2	3	4	;
+set STORAGE	:=	Hydro-Storage	; 
+
+
+	
+#
+# DiscountRate {r in REGION}; System discount rate given for different modeling regions.
+param DiscountRate default 0.05	 	:=
+TUNISIA	0.1	; 
+
+	
+#
+# DepreciationMethod; equal to 1 for Sinking Fund and 2 for Straight Line Depreciation
+param DepreciationMethod default 1 :=;
+
+
+#
+# YearSplit{l in TIMESLICE, y in YEAR}  Units: Fraction of 8760 hours
+# The fraction of the year in each time slice.
+param YearSplit	:	2010	2015	2020	2025	2030	:=
+Sp1	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp2	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp3	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp4	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp5	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp6	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp7	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp8	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp9	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp10	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp11	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp12	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp13	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp14	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp15	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp16	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp17	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp18	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp19	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp20	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp21	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp22	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp23	0.000114	0.000114	0.000114	0.000114	0.000114	
+Sp24	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su1	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su2	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su3	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su4	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su5	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su6	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su7	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su8	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su9	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su10	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su11	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su12	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su13	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su14	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su15	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su16	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su17	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su18	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su19	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su20	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su21	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su22	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su23	0.000114	0.000114	0.000114	0.000114	0.000114	
+Su24	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa1	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa2	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa3	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa4	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa5	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa6	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa7	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa8	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa9	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa10	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa11	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa12	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa13	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa14	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa15	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa16	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa17	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa18	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa19	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa20	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa21	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa22	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa23	0.000114	0.000114	0.000114	0.000114	0.000114	
+Fa24	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi1	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi2	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi3	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi4	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi5	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi6	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi7	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi8	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi9	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi10	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi11	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi12	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi13	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi14	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi15	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi16	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi17	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi18	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi19	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi20	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi21	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi22	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi23	0.000114	0.000114	0.000114	0.000114	0.000114	
+Wi24	0.000114	0.000114	0.000114	0.000114	0.000114
+Du	0.989056	0.989056	0.989056	0.989056	0.989056; 
+
+
+#
+# AccumulatedAnnualDemand{r in REGION, f in FUEL, y in YEAR}  Units: MWh
+# This type of demand can be satisfied at any time of the year, as long as the total is met.
+param AccumulatedAnnualDemand	default	0	:=	;
+
+#
+# SpecifiedAnnualDemand{r in REGION, f in FUEL, y in YEAR}  Units: MWh
+# The annual requirement for each output fuel.
+param SpecifiedAnnualDemand	default	0	:=						
+[*,electricity,*] :	2010	2015	2020	2025	2030	:=
+TUNISIA	152703	168596	186144	205518	226909	; 
+
+
+#
+# SpecifiedDemandProfile{r in REGION, l in TIMESLICE, f in FUEL, y in YEAR} Units: Fraction
+# Indicates the proportion of energy demand required in each time slice. For each year the sum must be equal to 1.
+param SpecifiedDemandProfile	default	0	:=
+[TUNISIA,electricity,*,*]	:	2010	2015	2020	2025	2030	:=
+Sp1	0.0084	0.0084	0.0084	0.0084	0.0084	
+Sp2	0.0082	0.0082	0.0082	0.0082	0.0082	
+Sp3	0.0079	0.0079	0.0079	0.0079	0.0079	
+Sp4	0.0079	0.0079	0.0079	0.0079	0.0079	
+Sp5	0.0078	0.0078	0.0078	0.0078	0.0078	
+Sp6	0.008	0.008	0.008	0.008	0.008	
+Sp7	0.0087	0.0087	0.0087	0.0087	0.0087	
+Sp8	0.0103	0.0103	0.0103	0.0103	0.0103	
+Sp9	0.0115	0.0115	0.0115	0.0115	0.0115	
+Sp10	0.0116	0.0116	0.0116	0.0116	0.0116	
+Sp11	0.012	0.012	0.012	0.012	0.012	
+Sp12	0.0117	0.0117	0.0117	0.0117	0.0117	
+Sp13	0.0113	0.0113	0.0113	0.0113	0.0113	
+Sp14	0.0113	0.0113	0.0113	0.0113	0.0113	
+Sp15	0.0113	0.0113	0.0113	0.0113	0.0113	
+Sp16	0.0113	0.0113	0.0113	0.0113	0.0113	
+Sp17	0.0108	0.0108	0.0108	0.0108	0.0108	
+Sp18	0.0102	0.0102	0.0102	0.0102	0.0102	
+Sp19	0.0107	0.0107	0.0107	0.0107	0.0107	
+Sp20	0.0126	0.0126	0.0126	0.0126	0.0126	
+Sp21	0.0118	0.0118	0.0118	0.0118	0.0118	
+Sp22	0.011	0.011	0.011	0.011	0.011	
+Sp23	0.0098	0.0098	0.0098	0.0098	0.0098	
+Sp24	0.0089	0.0089	0.0089	0.0089	0.0089	
+Su1	0.0125	0.0125	0.0125	0.0125	0.0125	
+Su2	0.0118	0.0118	0.0118	0.0118	0.0118	
+Su3	0.0114	0.0114	0.0114	0.0114	0.0114	
+Su4	0.0113	0.0113	0.0113	0.0113	0.0113	
+Su5	0.0108	0.0108	0.0108	0.0108	0.0108	
+Su6	0.0108	0.0108	0.0108	0.0108	0.0108	
+Su7	0.0117	0.0117	0.0117	0.0117	0.0117	
+Su8	0.0135	0.0135	0.0135	0.0135	0.0135	
+Su9	0.0147	0.0147	0.0147	0.0147	0.0147	
+Su10	0.015	0.015	0.015	0.015	0.015	
+Su11	0.0154	0.0154	0.0154	0.0154	0.0154	
+Su12	0.0156	0.0156	0.0156	0.0156	0.0156	
+Su13	0.0154	0.0154	0.0154	0.0154	0.0154	
+Su14	0.0148	0.0148	0.0148	0.0148	0.0148	
+Su15	0.0146	0.0146	0.0146	0.0146	0.0146	
+Su16	0.0145	0.0145	0.0145	0.0145	0.0145	
+Su17	0.0138	0.0138	0.0138	0.0138	0.0138	
+Su18	0.0135	0.0135	0.0135	0.0135	0.0135	
+Su19	0.0129	0.0129	0.0129	0.0129	0.0129	
+Su20	0.0152	0.0152	0.0152	0.0152	0.0152	
+Su21	0.0145	0.0145	0.0145	0.0145	0.0145	
+Su22	0.0132	0.0132	0.0132	0.0132	0.0132	
+Su23	0.0126	0.0126	0.0126	0.0126	0.0126	
+Su24	0.0122	0.0122	0.0122	0.0122	0.0122	
+Fa1	0.0078	0.0078	0.0078	0.0078	0.0078	
+Fa2	0.0075	0.0075	0.0075	0.0075	0.0075	
+Fa3	0.0074	0.0074	0.0074	0.0074	0.0074	
+Fa4	0.0073	0.0073	0.0073	0.0073	0.0073	
+Fa5	0.0074	0.0074	0.0074	0.0074	0.0074	
+Fa6	0.0075	0.0075	0.0075	0.0075	0.0075	
+Fa7	0.0073	0.0073	0.0073	0.0073	0.0073	
+Fa8	0.0079	0.0079	0.0079	0.0079	0.0079	
+Fa9	0.0089	0.0089	0.0089	0.0089	0.0089	
+Fa10	0.0091	0.0091	0.0091	0.0091	0.0091	
+Fa11	0.0094	0.0094	0.0094	0.0094	0.0094	
+Fa12	0.0094	0.0094	0.0094	0.0094	0.0094	
+Fa13	0.0093	0.0093	0.0093	0.0093	0.0093	
+Fa14	0.0091	0.0091	0.0091	0.0091	0.0091	
+Fa15	0.0091	0.0091	0.0091	0.0091	0.0091	
+Fa16	0.009	0.009	0.009	0.009	0.009	
+Fa17	0.0097	0.0097	0.0097	0.0097	0.0097	
+Fa18	0.0122	0.0122	0.0122	0.0122	0.0122	
+Fa19	0.0126	0.0126	0.0126	0.0126	0.0126	
+Fa20	0.0121	0.0121	0.0121	0.0121	0.0121	
+Fa21	0.0111	0.0111	0.0111	0.0111	0.0111	
+Fa22	0.01	0.01	0.01	0.01	0.01	
+Fa23	0.0092	0.0092	0.0092	0.0092	0.0092	
+Fa24	0.0083	0.0083	0.0083	0.0083	0.0083	
+Wi1	0.0078	0.0078	0.0078	0.0078	0.0078	
+Wi2	0.0075	0.0075	0.0075	0.0075	0.0075	
+Wi3	0.0073	0.0073	0.0073	0.0073	0.0073	
+Wi4	0.0073	0.0073	0.0073	0.0073	0.0073	
+Wi5	0.0071	0.0071	0.0071	0.0071	0.0071	
+Wi6	0.0073	0.0073	0.0073	0.0073	0.0073	
+Wi7	0.0073	0.0073	0.0073	0.0073	0.0073	
+Wi8	0.0077	0.0077	0.0077	0.0077	0.0077	
+Wi9	0.0083	0.0083	0.0083	0.0083	0.0083	
+Wi10	0.0088	0.0088	0.0088	0.0088	0.0088	
+Wi11	0.0089	0.0089	0.0089	0.0089	0.0089	
+Wi12	0.0091	0.0091	0.0091	0.0091	0.0091	
+Wi13	0.009	0.009	0.009	0.009	0.009	
+Wi14	0.0088	0.0088	0.0088	0.0088	0.0088	
+Wi15	0.0089	0.0089	0.0089	0.0089	0.0089	
+Wi16	0.0089	0.0089	0.0089	0.0089	0.0089	
+Wi17	0.0093	0.0093	0.0093	0.0093	0.0093	
+Wi18	0.0106	0.0106	0.0106	0.0106	0.0106	
+Wi19	0.0127	0.0127	0.0127	0.0127	0.0127	
+Wi20	0.0124	0.0124	0.0124	0.0124	0.0124	
+Wi21	0.0118	0.0118	0.0118	0.0118	0.0118	
+Wi22	0.0103	0.0103	0.0103	0.0103	0.0103	
+Wi23	0.0091	0.0091	0.0091	0.0091	0.0091	
+Wi24	0.0086	0.0086	0.0086	0.0086	0.0086	;
+
+
+#
+# CapacityToActivityUnit{r in REGION, t in TECHNOLOGY};  Units: MWh/MW-YR
+# Thus here we use a factor of 8760, which is the level of energy production in MWh produced from 1 MW operating for 1 year (1MW * 8760h)
+param CapacityToActivityUnit	default	1	:	wind_onshore	PV	steam_turbine	ocgt	ccgt	hydro_ror	hydro_stor	hydro_dam	supply_natural_gas	backup_electricity	:=
+TUNISIA	8760	8760	8760	8760	8760	8760	8760	8760	8760	8760	; 
+
+
+#
+# TechWithCapacityNeededToMeetPeakTS{r in Region, t in Technology}  Units: 1=yes, 0=no
+# Flags the technologies that can be used to meet the peak demand for the fuel they produce.
+param TechWithCapacityNeededToMeetPeakTS	default	0	:	wind_onshore	PV	steam_turbine	ocgt	ccgt	hydro_ror	hydro_stor	hydro_dam	supply_natural_gas	backup_electricity	:=
+TUNISIA	1	1	1	1	1	1	1	1	1	1	; 
+
+
+#
+# InputActivityRatio{r in REGION, t in TECHNOLOGY, f in FUEL, m in MODE_OF_OPERATION, y in YEAR}  Units: Ratio
+# The input (use) of fuel per unit of activity for each technology.
+param InputActivityRatio	default	0	:=						
+[TUNISIA,*,natural_gas,1,*]	:	2010	2015	2020	2025	2030	:=
+steam_turbine	3.23	3.03	2.86	2.7	2.56	
+ocgt	4	3.7	3.45	3.23	3.03	
+ccgt	2.27	2.17	2.08	2	1.92	
+
+[TUNISIA,*,electricity,2,*]	:	2010	2015	2020	2025	2030	:=
+hydro_stor	1.18	1.15	1.11	1.09	1.05	; 
+
+
+# 
+# OutputActivityRatio{r in Region, t in Technology, f in Fuel, m in ModeOfOperation, y in Year}  Units: Ratio
+# Ratio of output to activity.
+# Should be 1 for power plants/electricity, 1 for supply technologies and their respective fuels and zero for rest.
+param OutputActivityRatio	default	0	:=						
+[TUNISIA,*,electricity,1,*]	:	2010	2015	2020	2025	2030	:=
+wind_onshore	1	1	1	1	1	
+PV	1	1	1	1	1	
+steam_turbine	1	1	1	1	1	
+ocgt	1	1	1	1	1	
+ccgt	1	1	1	1	1	
+hydro_ror	1	1	1	1	1	
+hydro_stor	1	1	1	1	1	
+hydro_dam	1	1	1	1	1	
+backup_electricity	1	1	1	1	1	
+
+[TUNISIA,*,natural_gas,1,*]	:	2010	2015	2020	2025	2030	:=
+supply_natural_gas	1	1	1	1	1	; 
+
+
+#	
+# FixedCost{r in Region, t in Technology, y in Year} Units: k€/MW of Capacity
+# The annual cost per unit of capacity of a technology.
+param FixedCost	default	0	:=						
+[TUNISIA,*,*]	:		2010	2015	2020	2025	2030	:=
+wind_onshore	350	350	350	350	350	
+PV	25	25	25	25	25	
+steam_turbine	10	10	10	10	10	
+ocgt	10	10	10	10	10	
+ccgt	20	20	20	20	20	
+hydro_ror	40	40	40	40	40	
+hydro_stor	40	40	40	40	40	
+hydro_dam	40	40	40	40	40	
+supply_natural_gas	1000	1000	1000	1000	1000	
+backup_electricity	9999999	9999999	9999999	9999999	9999999	; 
+
+
+#	
+# CapitalCost{r in Region, t in Technology, y in Year} Units: k€/MW Capacity
+# Total capital cost (including interest paid during construction)per unit of capacity for new capacity additions
+param CapitalCost	default	0	:=						
+[TUNISIA,*,*]	:		2010	2015	2020	2025	2030	:=
+wind_onshore	1240	1240	1240	1240	1240	
+PV	750	750	750	750	750	
+steam_turbine	400	400	400	400	400	
+ocgt	600	600	600	600	600	
+ccgt	900	900	900	900	900	
+hydro_ror	2000	2000	2000	2000	2000	
+hydro_stor	2000	2000	2000	2000	2000	
+hydro_dam	2000	2000	2000	2000	2000	
+supply_natural_gas	1000	1000	1000	1000	1000	
+backup_electricity	9999999	9999999	9999999	9999999	9999999	; 
+
+
+#
+# VariableCost{r in Region, t in Technology, m in ModeOfOperation, y in Year} Units: k€/MWh 
+# Cost per unit of activity of the technology
+# This variable records both the nonfuel O&M costs of processes and fuel costs of each fuel supplied to those processes.
+param VariableCost	default	0.00001	:=						
+[TUNISIA,*,1,*]	:		2010	2015	2020	2025	2030	:=
+wind_onshore	5e-04	5e-04	5e-04	5e-04	5e-04	
+PV	2e-04	2e-04	2e-04	2e-04	2e-04	
+steam_turbine	0.008	0.008	0.008	0.008	0.008	
+ocgt	0.026	0.026	0.026	0.026	0.026	
+ccgt	0.004	0.004	0.004	0.004	0.004	
+hydro_ror	0.0045	0.0045	0.0045	0.0045	0.0045	
+hydro_stor	0.0045	0.0045	0.0045	0.0045	0.0045	
+hydro_dam	0.0045	0.0045	0.0045	0.0045	0.0045	
+supply_natural_gas	20	20	20	20	20	
+backup_electricity	9999999	9999999	9999999	9999999	9999999	; 
+
+
+#	
+# ResidualCapacity{r in Region, t in Technology, y in Year} Units: MW
+# The capacity left over from periods prior to the modeling period.
+param ResidualCapacity	default	0	:=							
+[TUNISIA,*,*]	:		2010	2015	2020	2025	2030	:=
+wind_onshore	732	732	732	0	0	
+PV	15	15	15	0	0	
+steam_turbine	7068	6828	6468	5268	4368	
+ocgt	5310	5310	5310	5310	5310	
+ccgt	3717	3717	3717	3717	3717	
+hydro_ror	198	198	198	198	198	
+hydro_stor	300	300	300	300	300	
+hydro_dam	0	0	0	0	0	
+supply_natural_gas	0	0	0	0	0	
+backup_electricity	0	0	0	0	0	; 
+
+
+#
+# AvailabilityFactor{r in Region, t in Technology, y in Year} Units: Fraction of Hours in Year
+# Maximum time technology may run for the whole year. Often used to simulate planned outages. OSeMOSYS will choose when to run or not run.
+param AvailabilityFactor	default	1	:=	;
+
+
+#	
+# CapacityFactor{r in Region, t in Technology, l in TIMESLICE, y in Year} Units: Fraction of Hours in Year
+# Indicates the maximum time technology may run in a given time slice.
+param CapacityFactor	default	0	:=
+[TUNISIA,PV,*,*]	:	2010	2015	2020	2025	2030	:=
+Sp1	0.3	0.3	0.3	0.3	0.3	
+Sp2	0.3	0.3	0.3	0.3	0.3	
+Sp3	0.3	0.3	0.3	0.3	0.3	
+Sp4	0.3	0.3	0.3	0.3	0.3	
+Sp5	0.3	0.3	0.3	0.3	0.3	
+Sp6	0.3	0.3	0.3	0.3	0.3	
+Sp7	0.3	0.3	0.3	0.3	0.3	
+Sp8	0.3	0.3	0.3	0.3	0.3	
+Sp9	0.3	0.3	0.3	0.3	0.3	
+Sp10	0.3	0.3	0.3	0.3	0.3	
+Sp11	0.3	0.3	0.3	0.3	0.3	
+Sp12	0.3	0.3	0.3	0.3	0.3	
+Sp13	0.3	0.3	0.3	0.3	0.3	
+Sp14	0.3	0.3	0.3	0.3	0.3	
+Sp15	0.3	0.3	0.3	0.3	0.3	
+Sp16	0.3	0.3	0.3	0.3	0.3	
+Sp17	0.3	0.3	0.3	0.3	0.3	
+Sp18	0.3	0.3	0.3	0.3	0.3	
+Sp19	0.3	0.3	0.3	0.3	0.3	
+Sp20	0.3	0.3	0.3	0.3	0.3	
+Sp21	0.3	0.3	0.3	0.3	0.3	
+Sp22	0.3	0.3	0.3	0.3	0.3	
+Sp23	0.3	0.3	0.3	0.3	0.3	
+Sp24	0.3	0.3	0.3	0.3	0.3	
+Su1	0.3	0.3	0.3	0.3	0.3	
+Su2	0.3	0.3	0.3	0.3	0.3	
+Su3	0.3	0.3	0.3	0.3	0.3	
+Su4	0.3	0.3	0.3	0.3	0.3	
+Su5	0.3	0.3	0.3	0.3	0.3	
+Su6	0.3	0.3	0.3	0.3	0.3	
+Su7	0.3	0.3	0.3	0.3	0.3	
+Su8	0.3	0.3	0.3	0.3	0.3	
+Su9	0.3	0.3	0.3	0.3	0.3	
+Su10	0.3	0.3	0.3	0.3	0.3	
+Su11	0.3	0.3	0.3	0.3	0.3	
+Su12	0.3	0.3	0.3	0.3	0.3	
+Su13	0.3	0.3	0.3	0.3	0.3	
+Su14	0.3	0.3	0.3	0.3	0.3	
+Su15	0.3	0.3	0.3	0.3	0.3	
+Su16	0.3	0.3	0.3	0.3	0.3	
+Su17	0.3	0.3	0.3	0.3	0.3	
+Su18	0.3	0.3	0.3	0.3	0.3	
+Su19	0.3	0.3	0.3	0.3	0.3	
+Su20	0.3	0.3	0.3	0.3	0.3	
+Su21	0.3	0.3	0.3	0.3	0.3	
+Su22	0.3	0.3	0.3	0.3	0.3	
+Su23	0.3	0.3	0.3	0.3	0.3	
+Su24	0.3	0.3	0.3	0.3	0.3	
+Fa1	0.3	0.3	0.3	0.3	0.3	
+Fa2	0.3	0.3	0.3	0.3	0.3	
+Fa3	0.3	0.3	0.3	0.3	0.3	
+Fa4	0.3	0.3	0.3	0.3	0.3	
+Fa5	0.3	0.3	0.3	0.3	0.3	
+Fa6	0.3	0.3	0.3	0.3	0.3	
+Fa7	0.3	0.3	0.3	0.3	0.3	
+Fa8	0.3	0.3	0.3	0.3	0.3	
+Fa9	0.3	0.3	0.3	0.3	0.3	
+Fa10	0.3	0.3	0.3	0.3	0.3	
+Fa11	0.3	0.3	0.3	0.3	0.3	
+Fa12	0.3	0.3	0.3	0.3	0.3	
+Fa13	0.3	0.3	0.3	0.3	0.3	
+Fa14	0.3	0.3	0.3	0.3	0.3	
+Fa15	0.3	0.3	0.3	0.3	0.3	
+Fa16	0.3	0.3	0.3	0.3	0.3	
+Fa17	0.3	0.3	0.3	0.3	0.3	
+Fa18	0.3	0.3	0.3	0.3	0.3	
+Fa19	0.3	0.3	0.3	0.3	0.3	
+Fa20	0.3	0.3	0.3	0.3	0.3	
+Fa21	0.3	0.3	0.3	0.3	0.3	
+Fa22	0.3	0.3	0.3	0.3	0.3	
+Fa23	0.3	0.3	0.3	0.3	0.3	
+Fa24	0.3	0.3	0.3	0.3	0.3	
+Wi1	0.3	0.3	0.3	0.3	0.3	
+Wi2	0.3	0.3	0.3	0.3	0.3	
+Wi3	0.3	0.3	0.3	0.3	0.3	
+Wi4	0.3	0.3	0.3	0.3	0.3	
+Wi5	0.3	0.3	0.3	0.3	0.3	
+Wi6	0.3	0.3	0.3	0.3	0.3	
+Wi7	0.3	0.3	0.3	0.3	0.3	
+Wi8	0.3	0.3	0.3	0.3	0.3	
+Wi9	0.3	0.3	0.3	0.3	0.3	
+Wi10	0.3	0.3	0.3	0.3	0.3	
+Wi11	0.3	0.3	0.3	0.3	0.3	
+Wi12	0.3	0.3	0.3	0.3	0.3	
+Wi13	0.3	0.3	0.3	0.3	0.3	
+Wi14	0.3	0.3	0.3	0.3	0.3	
+Wi15	0.3	0.3	0.3	0.3	0.3	
+Wi16	0.3	0.3	0.3	0.3	0.3	
+Wi17	0.3	0.3	0.3	0.3	0.3	
+Wi18	0.3	0.3	0.3	0.3	0.3	
+Wi19	0.3	0.3	0.3	0.3	0.3	
+Wi20	0.3	0.3	0.3	0.3	0.3	
+Wi21	0.3	0.3	0.3	0.3	0.3	
+Wi22	0.3	0.3	0.3	0.3	0.3	
+Wi23	0.3	0.3	0.3	0.3	0.3	
+Wi24	0.3	0.3	0.3	0.3	0.3	
+
+[TUNISIA,wind_onshore,*,*]	:	2010	2015	2020	2025	2030	:=
+Sp1	0.5	0.5	0.5	0.5	0.5	
+Sp2	0.5	0.5	0.5	0.5	0.5	
+Sp3	0.5	0.5	0.5	0.5	0.5	
+Sp4	0.5	0.5	0.5	0.5	0.5	
+Sp5	0.5	0.5	0.5	0.5	0.5	
+Sp6	0.5	0.5	0.5	0.5	0.5	
+Sp7	0.5	0.5	0.5	0.5	0.5	
+Sp8	0.5	0.5	0.5	0.5	0.5	
+Sp9	0.5	0.5	0.5	0.5	0.5	
+Sp10	0.5	0.5	0.5	0.5	0.5	
+Sp11	0.5	0.5	0.5	0.5	0.5	
+Sp12	0.5	0.5	0.5	0.5	0.5	
+Sp13	0.5	0.5	0.5	0.5	0.5	
+Sp14	0.5	0.5	0.5	0.5	0.5	
+Sp15	0.5	0.5	0.5	0.5	0.5	
+Sp16	0.5	0.5	0.5	0.5	0.5	
+Sp17	0.5	0.5	0.5	0.5	0.5	
+Sp18	0.5	0.5	0.5	0.5	0.5	
+Sp19	0.5	0.5	0.5	0.5	0.5	
+Sp20	0.5	0.5	0.5	0.5	0.5	
+Sp21	0.5	0.5	0.5	0.5	0.5	
+Sp22	0.5	0.5	0.5	0.5	0.5	
+Sp23	0.5	0.5	0.5	0.5	0.5	
+Sp24	0.5	0.5	0.5	0.5	0.5	
+Su1	0.5	0.5	0.5	0.5	0.5	
+Su2	0.5	0.5	0.5	0.5	0.5	
+Su3	0.5	0.5	0.5	0.5	0.5	
+Su4	0.5	0.5	0.5	0.5	0.5	
+Su5	0.5	0.5	0.5	0.5	0.5	
+Su6	0.5	0.5	0.5	0.5	0.5	
+Su7	0.5	0.5	0.5	0.5	0.5	
+Su8	0.5	0.5	0.5	0.5	0.5	
+Su9	0.5	0.5	0.5	0.5	0.5	
+Su10	0.5	0.5	0.5	0.5	0.5	
+Su11	0.5	0.5	0.5	0.5	0.5	
+Su12	0.5	0.5	0.5	0.5	0.5	
+Su13	0.5	0.5	0.5	0.5	0.5	
+Su14	0.5	0.5	0.5	0.5	0.5	
+Su15	0.5	0.5	0.5	0.5	0.5	
+Su16	0.5	0.5	0.5	0.5	0.5	
+Su17	0.5	0.5	0.5	0.5	0.5	
+Su18	0.5	0.5	0.5	0.5	0.5	
+Su19	0.5	0.5	0.5	0.5	0.5	
+Su20	0.5	0.5	0.5	0.5	0.5	
+Su21	0.5	0.5	0.5	0.5	0.5	
+Su22	0.5	0.5	0.5	0.5	0.5	
+Su23	0.5	0.5	0.5	0.5	0.5	
+Su24	0.5	0.5	0.5	0.5	0.5	
+Fa1	0.5	0.5	0.5	0.5	0.5	
+Fa2	0.5	0.5	0.5	0.5	0.5	
+Fa3	0.5	0.5	0.5	0.5	0.5	
+Fa4	0.5	0.5	0.5	0.5	0.5	
+Fa5	0.5	0.5	0.5	0.5	0.5	
+Fa6	0.5	0.5	0.5	0.5	0.5	
+Fa7	0.5	0.5	0.5	0.5	0.5	
+Fa8	0.5	0.5	0.5	0.5	0.5	
+Fa9	0.5	0.5	0.5	0.5	0.5	
+Fa10	0.5	0.5	0.5	0.5	0.5	
+Fa11	0.5	0.5	0.5	0.5	0.5	
+Fa12	0.5	0.5	0.5	0.5	0.5	
+Fa13	0.5	0.5	0.5	0.5	0.5	
+Fa14	0.5	0.5	0.5	0.5	0.5	
+Fa15	0.5	0.5	0.5	0.5	0.5	
+Fa16	0.5	0.5	0.5	0.5	0.5	
+Fa17	0.5	0.5	0.5	0.5	0.5	
+Fa18	0.5	0.5	0.5	0.5	0.5	
+Fa19	0.5	0.5	0.5	0.5	0.5	
+Fa20	0.5	0.5	0.5	0.5	0.5	
+Fa21	0.5	0.5	0.5	0.5	0.5	
+Fa22	0.5	0.5	0.5	0.5	0.5	
+Fa23	0.5	0.5	0.5	0.5	0.5	
+Fa24	0.5	0.5	0.5	0.5	0.5	
+Wi1	0.5	0.5	0.5	0.5	0.5	
+Wi2	0.5	0.5	0.5	0.5	0.5	
+Wi3	0.5	0.5	0.5	0.5	0.5	
+Wi4	0.5	0.5	0.5	0.5	0.5	
+Wi5	0.5	0.5	0.5	0.5	0.5	
+Wi6	0.5	0.5	0.5	0.5	0.5	
+Wi7	0.5	0.5	0.5	0.5	0.5	
+Wi8	0.5	0.5	0.5	0.5	0.5	
+Wi9	0.5	0.5	0.5	0.5	0.5	
+Wi10	0.5	0.5	0.5	0.5	0.5	
+Wi11	0.5	0.5	0.5	0.5	0.5	
+Wi12	0.5	0.5	0.5	0.5	0.5	
+Wi13	0.5	0.5	0.5	0.5	0.5	
+Wi14	0.5	0.5	0.5	0.5	0.5	
+Wi15	0.5	0.5	0.5	0.5	0.5	
+Wi16	0.5	0.5	0.5	0.5	0.5	
+Wi17	0.5	0.5	0.5	0.5	0.5	
+Wi18	0.5	0.5	0.5	0.5	0.5	
+Wi19	0.5	0.5	0.5	0.5	0.5	
+Wi20	0.5	0.5	0.5	0.5	0.5	
+Wi21	0.5	0.5	0.5	0.5	0.5	
+Wi22	0.5	0.5	0.5	0.5	0.5	
+Wi23	0.5	0.5	0.5	0.5	0.5	
+Wi24	0.5	0.5	0.5	0.5	0.5	;
+
+
+#
+# EmissionActivityRatio{r in Region, t in Technology, e in Emission, m in ModeOfOperation, y in Year}  Units: Tonnes/PJ Output
+# Emissions factor per unit of activity.
+param EmissionActivityRatio	default	0	:=							
+[TUNISIA,*,co2,1,*]	:	2010	2015	2020	2025	2030	:=
+steam_turbine	180	180	180	180	180	
+ocgt	200	200	200	200	200	
+ccgt	160	160	160	160	160	; 
+
+
+#	
+# EmissionsPenalty{r in Region, e in Emission, y in Year} Units: Million $/Tonne of Pollutant
+# Externality cost per unit of emission
+param EmissionsPenalty		default 0	:=	
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+co2	0	0	0	0	0	;
+
+
+#	
+# ReserveMarginTagFuel{r in Region,f in Fuel, y in Year} Units: 1=yes, 0=no
+# Indicates if the output fuel has a reserve margin associated with it.
+param ReserveMarginTagFuel	default	0	:=							
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+electricity	1	1	1	1	1	; 
+
+
+#	
+# ReserveMargin{r in Region, y in Year} Units: Ratio (Installed/Peak)
+# The reserve (installed) capacity required relative to the peak demand for the specified fuel.
+param ReserveMargin	:	2010	2015	2020	2025	2030	:=
+TUNISIA	1.1	1.1	1.1	1.1	1.1	; 
+
+
+#
+# ReserveMarginTagTechnology{r in Region,t in Technology, y in Year} Units: fraction
+# Amount the technology contributes to the reserve margin 1=100%  0.2=20%.
+param ReserveMarginTagTechnology	default	0	:=						
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+wind_onshore	0	0	0	0	0	
+PV	0	0	0	0	0	
+steam_turbine	1	1	1	1	1	
+ocgt	1	1	1	1	1	
+ccgt	1	1	1	1	1	
+hydro_ror	1	1	1	1	1	
+hydro_stor	1	1	1	1	1	
+hydro_dam	1	1	1	1	1	
+supply_natural_gas	1	1	1	1	1	
+backup_electricity	1	1	1	1	1	; 
+
+
+#
+# param OperationalLife{r in Region, t in Technology};  Units: years
+# Operational lifespan of a process in years.
+param OperationalLife	default	20	:	wind_onshore	PV	steam_turbine	ocgt	ccgt	hydro_ror	hydro_stor	hydro_dam	supply_natural_gas	backup_electricity	:=
+TUNISIA	20	20	40	40	40	100	100	100	99	99	; 
+
+
+#
+# TotalAnnualMaxCapacity{r in Region, t in Technology, y in Year} Units: MW
+# Maximum total (residual and new) capacity each year.
+param TotalAnnualMaxCapacity	default	9999999999	:=						
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+wind_onshore	99999999	99999999	99999999	99999999	99999999	
+PV	99999999	99999999	99999999	99999999	99999999	
+steam_turbine	99999999	99999999	99999999	99999999	99999999	
+ocgt	99999999	99999999	99999999	99999999	99999999	
+ccgt	99999999	99999999	99999999	99999999	99999999	
+hydro_ror	99999999	99999999	99999999	99999999	99999999	
+hydro_stor	99999999	99999999	99999999	99999999	99999999	; 
+
+
+#
+# TotalAnnualMinCapacity{r in Region, t in Technology, y in Year} Units: MW
+# Minimum total (residual and new) capacity each year.
+param TotalAnnualMinCapacity	default	0	:=						
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+wind_onshore	0	0	0	0	0	
+PV	0	0	0	0	0	
+steam_turbine	0	0	0	0	0	
+ocgt	0	0	0	0	0	
+ccgt	0	0	0	0	0	
+hydro_ror	0	0	0	0	0	
+hydro_stor	0	0	0	0	0	; 
+
+
+#
+# TotalAnnualMaxCapacityInvestment{r in Region, t in Technology, y in Year} Units: MW
+# Maximum new capacity each year.  Use this to stop OSeMOSYS investing in existing technologies.
+param TotalAnnualMaxCapacityInvestment	default	9999999	:=	;		
+#	
+# TotalAnnualMinCapacityInvestment{r in Region, t in Technology, y in Year} Units: MW
+# Minimum new capacity each year.
+param TotalAnnualMinCapacityInvestment	default	0	:=	;																			
+#
+# param TotalTechnologyAnnualActivityUpperLimit{r in Region, t in Technology, y in Year} Units: MWh
+# Maximum amount of activity that a technology can perform each year.
+param TotalTechnologyAnnualActivityUpperLimit	default	999999999	:=	;																			
+#
+# TotalTechnologyAnnualActivityLowerLimit{r in Region, t in Technology, y in Year} Units: MWh
+# Minimum activity that a technology can perform each year. # must-run
+param TotalTechnologyAnnualActivityLowerLimit	default	0	:=	;																			
+#
+# TotalTechnologyModelPeriodActivityUpperLimit{r in Region, t in Technology} Units: MWh
+# Maximum level of activity by a technology over the whole model period.
+param TotalTechnologyModelPeriodActivityUpperLimit	default	9999999999	:=	;																			
+#
+# TotalTechnologyModelPeriodActivityLowerLimit{r in Region, t in Technology} Units: MWh
+# Minimum level of activity by a technology over the whole model period.
+param TotalTechnologyModelPeriodActivityLowerLimit	default	0	:=	;																			
+#
+# RETagTechnology{r in Region, t in Technology, y in Year} Units: 1=yes, 0=no
+# Flags technologies that are allowed to contribute to the renewable capacity of the system.
+param RETagTechnology	default	0	:=							
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+wind_onshore	1	1	1	1	1	
+PV	1	1	1	1	1	
+hydro_ror	1	1	1	1	1	
+hydro_stor	1	1	1	1	1	
+hydro_dam	1	1	1	1	1	; 
+
+
+#
+# RETagFuel{r in Region,f in Fuel, y in Year} Units: 1=yes, 0=no
+# The fuels for which there is a renewable target.
+param RETagFuel	default	0	:=							
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+electricity	1	1	1	1	1	; 
+
+
+#
+# REMinProductionTarget{r in Region, f in Fuel, y in Year}  Units: Fraction
+# What fraction of the fuels (tagged in the RETagFuel parameter) must come from the Renewable technologies (tagged in the RETagTechnology parameter)
+param REMinProductionTarget	default	0	:=						
+[*,*]	:	2010	2015	2020	2025	2030	:=
+TUNISIA	0	0	0.05	0.15	0.3	; 
+
+
+#																								
+# Conversionls{l in TIMESLICE, ls in SEASON}																											
+# Set equal to 1 to assign a particular time slice to a season. Set equal to 0 in order not to assign a particular time slice to a season.
+param Conversionls	default	0	:=					
+[*,*] :	1	2	3	4	:=
+Sp1	1	0	0	0	
+Sp2	1	0	0	0	
+Sp3	1	0	0	0	
+Sp4	1	0	0	0	
+Sp5	1	0	0	0	
+Sp6	1	0	0	0	
+Sp7	1	0	0	0	
+Sp8	1	0	0	0	
+Sp9	1	0	0	0	
+Sp10	1	0	0	0	
+Sp11	1	0	0	0	
+Sp12	1	0	0	0	
+Sp13	1	0	0	0	
+Sp14	1	0	0	0	
+Sp15	1	0	0	0	
+Sp16	1	0	0	0	
+Sp17	1	0	0	0	
+Sp18	1	0	0	0	
+Sp19	1	0	0	0	
+Sp20	1	0	0	0	
+Sp21	1	0	0	0	
+Sp22	1	0	0	0	
+Sp23	1	0	0	0	
+Sp24	1	0	0	0	
+Su1	0	1	0	0	
+Su2	0	1	0	0	
+Su3	0	1	0	0	
+Su4	0	1	0	0	
+Su5	0	1	0	0	
+Su6	0	1	0	0	
+Su7	0	1	0	0	
+Su8	0	1	0	0	
+Su9	0	1	0	0	
+Su10	0	1	0	0	
+Su11	0	1	0	0	
+Su12	0	1	0	0	
+Su13	0	1	0	0	
+Su14	0	1	0	0	
+Su15	0	1	0	0	
+Su16	0	1	0	0	
+Su17	0	1	0	0	
+Su18	0	1	0	0	
+Su19	0	1	0	0	
+Su20	0	1	0	0	
+Su21	0	1	0	0	
+Su22	0	1	0	0	
+Su23	0	1	0	0	
+Su24	0	1	0	0	
+Fa1	0	0	1	0	
+Fa2	0	0	1	0	
+Fa3	0	0	1	0	
+Fa4	0	0	1	0	
+Fa5	0	0	1	0	
+Fa6	0	0	1	0	
+Fa7	0	0	1	0	
+Fa8	0	0	1	0	
+Fa9	0	0	1	0	
+Fa10	0	0	1	0	
+Fa11	0	0	1	0	
+Fa12	0	0	1	0	
+Fa13	0	0	1	0	
+Fa14	0	0	1	0	
+Fa15	0	0	1	0	
+Fa16	0	0	1	0	
+Fa17	0	0	1	0	
+Fa18	0	0	1	0	
+Fa19	0	0	1	0	
+Fa20	0	0	1	0	
+Fa21	0	0	1	0	
+Fa22	0	0	1	0	
+Fa23	0	0	1	0	
+Fa24	0	0	1	0	
+Wi1	0	0	0	1	
+Wi2	0	0	0	1	
+Wi3	0	0	0	1	
+Wi4	0	0	0	1	
+Wi5	0	0	0	1	
+Wi6	0	0	0	1	
+Wi7	0	0	0	1	
+Wi8	0	0	0	1	
+Wi9	0	0	0	1	
+Wi10	0	0	0	1	
+Wi11	0	0	0	1	
+Wi12	0	0	0	1	
+Wi13	0	0	0	1	
+Wi14	0	0	0	1	
+Wi15	0	0	0	1	
+Wi16	0	0	0	1	
+Wi17	0	0	0	1	
+Wi18	0	0	0	1	
+Wi19	0	0	0	1	
+Wi20	0	0	0	1	
+Wi21	0	0	0	1	
+Wi22	0	0	0	1	
+Wi23	0	0	0	1	
+Wi24	0	0	0	1	; 
+
+
+# Conversionld{l in TIMESLICE, ld in DAYTYPE}				
+# Set equal to 1 to assign a particular time slice to a day type. Set equal to 0 in order not to assign a particular time slice to a day type.
+param Conversionld	default	0	:=		
+[*,*] :	1	:=
+Sp1	1	
+Sp2	1	
+Sp3	1	
+Sp4	1	
+Sp5	1	
+Sp6	1	
+Sp7	1	
+Sp8	1	
+Sp9	1	
+Sp10	1	
+Sp11	1	
+Sp12	1	
+Sp13	1	
+Sp14	1	
+Sp15	1	
+Sp16	1	
+Sp17	1	
+Sp18	1	
+Sp19	1	
+Sp20	1	
+Sp21	1	
+Sp22	1	
+Sp23	1	
+Sp24	1	
+Su1	1	
+Su2	1	
+Su3	1	
+Su4	1	
+Su5	1	
+Su6	1	
+Su7	1	
+Su8	1	
+Su9	1	
+Su10	1	
+Su11	1	
+Su12	1	
+Su13	1	
+Su14	1	
+Su15	1	
+Su16	1	
+Su17	1	
+Su18	1	
+Su19	1	
+Su20	1	
+Su21	1	
+Su22	1	
+Su23	1	
+Su24	1	
+Fa1	1	
+Fa2	1	
+Fa3	1	
+Fa4	1	
+Fa5	1	
+Fa6	1	
+Fa7	1	
+Fa8	1	
+Fa9	1	
+Fa10	1	
+Fa11	1	
+Fa12	1	
+Fa13	1	
+Fa14	1	
+Fa15	1	
+Fa16	1	
+Fa17	1	
+Fa18	1	
+Fa19	1	
+Fa20	1	
+Fa21	1	
+Fa22	1	
+Fa23	1	
+Fa24	1	
+Wi1	1	
+Wi2	1	
+Wi3	1	
+Wi4	1	
+Wi5	1	
+Wi6	1	
+Wi7	1	
+Wi8	1	
+Wi9	1	
+Wi10	1	
+Wi11	1	
+Wi12	1	
+Wi13	1	
+Wi14	1	
+Wi15	1	
+Wi16	1	
+Wi17	1	
+Wi18	1	
+Wi19	1	
+Wi20	1	
+Wi21	1	
+Wi22	1	
+Wi23	1	
+Wi24	1	; 
+
+
+# Conversionlh{l in TIMESLICE, lh in DAILYTIMEBRACKET} 				
+# Set equal to 1 to assign a particular time slice to a daily time bracket. Set equal to 0 in order not to assign a particular time slice to a daily time bracket.
+param Conversionlh	default	0	:=					
+[*,*] :	1	2	3	4	:=
+Sp1	0	0	0	1	
+Sp2	0	0	0	1	
+Sp3	0	0	0	1	
+Sp4	0	0	0	1	
+Sp5	1	0	0	0	
+Sp6	1	0	0	0	
+Sp7	1	0	0	0	
+Sp8	1	0	0	0	
+Sp9	1	0	0	0	
+Sp10	1	0	0	0	
+Sp11	0	1	0	0	
+Sp12	0	1	0	0	
+Sp13	0	1	0	0	
+Sp14	0	1	0	0	
+Sp15	0	1	0	0	
+Sp16	0	1	0	0	
+Sp17	0	0	1	0	
+Sp18	0	0	1	0	
+Sp19	0	0	1	0	
+Sp20	0	0	1	0	
+Sp21	0	0	1	0	
+Sp22	0	0	1	0	
+Sp23	0	0	0	1	
+Sp24	0	0	0	1	
+Su1	0	0	0	1	
+Su2	0	0	0	1	
+Su3	0	0	0	1	
+Su4	0	0	0	1	
+Su5	1	0	0	0	
+Su6	1	0	0	0	
+Su7	1	0	0	0	
+Su8	1	0	0	0	
+Su9	1	0	0	0	
+Su10	1	0	0	0	
+Su11	0	1	0	0	
+Su12	0	1	0	0	
+Su13	0	1	0	0	
+Su14	0	1	0	0	
+Su15	0	1	0	0	
+Su16	0	1	0	0	
+Su17	0	0	1	0	
+Su18	0	0	1	0	
+Su19	0	0	1	0	
+Su20	0	0	1	0	
+Su21	0	0	1	0	
+Su22	0	0	1	0	
+Su23	0	0	0	1	
+Su24	0	0	0	1	
+Fa1	0	0	0	1	
+Fa2	0	0	0	1	
+Fa3	0	0	0	1	
+Fa4	0	0	0	1	
+Fa5	1	0	0	0	
+Fa6	1	0	0	0	
+Fa7	1	0	0	0	
+Fa8	1	0	0	0	
+Fa9	1	0	0	0	
+Fa10	1	0	0	0	
+Fa11	0	1	0	0	
+Fa12	0	1	0	0	
+Fa13	0	1	0	0	
+Fa14	0	1	0	0	
+Fa15	0	1	0	0	
+Fa16	0	1	0	0	
+Fa17	0	0	1	0	
+Fa18	0	0	1	0	
+Fa19	0	0	1	0	
+Fa20	0	0	1	0	
+Fa21	0	0	1	0	
+Fa22	0	0	1	0	
+Fa23	0	0	0	1	
+Fa24	0	0	0	1	
+Wi1	0	0	0	1	
+Wi2	0	0	0	1	
+Wi3	0	0	0	1	
+Wi4	0	0	0	1	
+Wi5	1	0	0	0	
+Wi6	1	0	0	0	
+Wi7	1	0	0	0	
+Wi8	1	0	0	0	
+Wi9	1	0	0	0	
+Wi10	1	0	0	0	
+Wi11	0	1	0	0	
+Wi12	0	1	0	0	
+Wi13	0	1	0	0	
+Wi14	0	1	0	0	
+Wi15	0	1	0	0	
+Wi16	0	1	0	0	
+Wi17	0	0	1	0	
+Wi18	0	0	1	0	
+Wi19	0	0	1	0	
+Wi20	0	0	1	0	
+Wi21	0	0	1	0	
+Wi22	0	0	1	0	
+Wi23	0	0	0	1	
+Wi24	0	0	0	1	; 
+
+
+#
+# DaySplit{lh in DAILYTIMEBRACKET, y in YEAR};																											
+# The length of one time bracket in one specific day as a fraction of the year, e.g., when distinguishing between days and night: 12h/(24h*365d)
+param DaySplit	default	 0.000684931506849315 :=;
+
+# DaysInDayType{ls in SEASON, ld in DAYTYPE, y in YEAR};
+# Number of days for each day type within a week, i.e., out of 7
+param DaysInDayType	default	7	:=	;
+
+#
+# TechnologyToStorage{r in REGION, t in TECHNOLOGY, s in STORAGE, m in MODE_OF_OPERATION}
+param TechnologyToStorage	default	0	:=		
+[TUNISIA,*,*,2]	:	Hydro-Storage	:=
+hydro_stor	1	; 
+
+
+#
+# TechnologyFromStorage{r in REGION, t in TECHNOLOGY, s in STORAGE, m in MODE_OF_OPERATION}
+param TechnologyFromStorage	default	0	:=		
+[TUNISIA,*,*,1]	:	Hydro-Storage	:=
+hydro_stor	1	; 
+
+
+#																										
+# StorageLevelStart{r in REGION, s in STORAGE}																											
+# At beginning of first year. Attention: if zero, OSeMOSYS will use the first time slices in the entire first day type in the entire first season to fill the storage. 																											
+# To avoid OSeMOSYS taking a whole part of a season to fill up the storage, and to avoid defining smaller seasons, set it to zero, run the model, and check the StorageLevelYearStart 																											
+# variable of the following year and use a similar value for StorageLevelStart. Alternatively, model a few years before the first year of your interest.																											
+param StorageLevelStart	default	999	:=
+[*,*]:	Hydro-Storage :=
+TUNISIA 10;	
+
+# StorageMaxChargeRate{r in REGION, s in STORAGE}; Unit: MW
+param StorageMaxChargeRate	default	99	:=		
+[*,*]	:	Hydro-Storage	:=
+TUNISIA	0.1	; 
+
+
+# StorageMaxDischargeRate{r in REGION, s in STORAGE}; Unit: MW
+param StorageMaxDischargeRate	default	99	:=		
+[*,*]	:	Hydro-Storage	:=
+TUNISIA	0.1	; 
+
+
+# MinStorageCharge{r in REGION, s in STORAGE, y in YEAR}; Unit: fraction of MaxStorageCharge, i.e., between 0.00 and 0.99.
+param MinStorageCharge	default	0	:=						
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+Hydro-Storage	0.01	0.01	0.01	0.01	0.01	; 
+
+
+# OperationalLifeStorage{r in REGION, s in STORAGE}; Unit: years
+param OperationalLifeStorage	default	99	:=		
+[*,*]	:	Hydro-Storage	:=
+TUNISIA	20	; 
+
+
+# CapitalCostStorage{r in REGION, s in STORAGE, y in YEAR}; Unit: €/MWa
+param CapitalCostStorage	default	50	:=						
+[TUNISIA,*,*]	:	2010	2015	2020	2025	2030	:=
+Hydro-Storage	2000	2000	2000	2000	2000	; 
+
+
+# ResidualStorageCapacity{r in REGION, s in STORAGE, y in YEAR}; 
+# Storage capacity which is available from before the modelling period, or which is know to become available in a specific year. Unit: MWa
+param ResidualStorageCapacity	default	999	:=							
+[TUNISIA,*,*]	:		2010	2015	2020	2025	2030	:=
+Hydro-Storage	100	100	100	0	0	; 
+
+
+# CapacityOfOneTechnologyUnit{r in REGION, t in TECHNOLOGY, y in YEAR}; Unit: GW
+# Defines the minimum size of one capacity addition. If set to zero, no mixed integer linear programming (MILP) is used and computational time will decrease.																		
+param CapacityOfOneTechnologyUnit	default	0	:=	;
+
+#
+# TradeRoute{r in REGION, rr in REGION, f in FUEL, y in YEAR}
+# Defines which region r is linked with which region rr in order to enable or disable trading of a specific fuel. Unit: Fraction, either 1 or 0
+# 1 defines a trade link and 0 ensuring that no trade occurs. Values inbetween are not allowed. If r is linked to rr, rr has also to be linked with r.
+# I.e., for one specific year and fuel, this parameter is entered as a symmetric matrix (with a diagonal of zeros).
+param TradeRoute default	0 :=
+  ;																											
+end;
