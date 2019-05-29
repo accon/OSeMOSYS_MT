@@ -1,0 +1,15 @@
+﻿SELECT 	timeslice.pk,
+	timeslice.name,
+	season.name,
+	daytype.name,
+	daylitimebracket.name,
+	timeslice.hours_per_timeslice
+	
+FROM 	timeslice,
+	season,
+	daytype,
+	daylitimebracket
+
+WHERE	timeslice.season_fk = season.season_pk
+AND	timeslice.daytype_fk = daytype.pk
+AND	timeslice.dailytimebracket_fk = daylitimebracket.pk
