@@ -1,0 +1,5 @@
+﻿ALTER TABLE power_plant_type
+  DROP CONSTRAINT power_plant_type_efficiency_average_check,
+  DROP CONSTRAINT power_plant_type_emission_co2_average__kg_mwh_check,
+  ADD CONSTRAINT power_plant_type_efficiency_average_check CHECK (efficiency_average >= 0::numeric AND efficiency_average <= 1::numeric),
+  ADD CONSTRAINT power_plant_type_emission_co2_average__kg_mwh_check CHECK (emission_co2_average__kg_mwh >= 0::numeric)
