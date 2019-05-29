@@ -1,0 +1,8 @@
+storage_type,modeling_years,capital_cost__eur_mw,capital_cost__eur_mwh,fix_cost__eur_mw,fix_cost__eur_mwh,variable_cost__eur_mw,variable_cost__eur_mwh
+csp_thermal,2010,500,20,0.001,0.001,0,0
+csp_thermal,2015,500,20,0.001,0.001,0,0
+csp_thermal,2020,500,20,0.001,0.001,0,0
+csp_thermal,2025,500,20,0.001,0.001,0,0
+csp_thermal,2030,500,20,0.001,0.001,0,0
+csp_thermal,2035,500,20,0.001,0.001,0,0
+csp_thermal,2040,500,20,0.001,0.001,0,0

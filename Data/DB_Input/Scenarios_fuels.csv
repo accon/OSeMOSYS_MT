@@ -1,0 +1,53 @@
+Source,,Publication Year,Scenario Year,Target Region,Unit,Value,Notes
+,,,,,,,
+World Bank – current policies scenario,WBG et al. ,2017,2015,Tunisia,2016-€ / MWh,19.61,Higher Heating Value
+World Bank – current policies scenario,WBG et al. ,2017,2020,Tunisia,2016-€ / MWh,17.45,Higher Heating Value
+World Bank – current policies scenario,WBG et al. ,2017,2025,Tunisia,2016-€ / MWh,21.71,Higher Heating Value
+World Bank – current policies scenario,WBG et al. ,2017,2030,Tunisia,2016-€ / MWh,26.98,Higher Heating Value
+World Bank – current policies scenario,WBG et al. ,2017,2035,Tunisia,2016-€ / MWh,28.34,Higher Heating Value
+World Bank – current policies scenario,WBG et al. ,2017,2040,Tunisia,2016-€ / MWh,29.76,Higher Heating Value
+,,,,,,,
+World Bank – New policies scenario,WBG et al. ,2017,2015,Tunisia,2016-€ / MWh,19.61,Higher Heating Value
+World Bank – New policies scenario,WBG et al. ,2017,2020,Tunisia,2016-€ / MWh,16.97,Higher Heating Value
+World Bank – New policies scenario,WBG et al. ,2017,2025,Tunisia,2016-€ / MWh,20.29,Higher Heating Value
+World Bank – New policies scenario,WBG et al. ,2017,2030,Tunisia,2016-€ / MWh,24.35,Higher Heating Value
+World Bank – New policies scenario,WBG et al. ,2017,2035,Tunisia,2016-€ / MWh,25.56,Higher Heating Value
+World Bank – New policies scenario,WBG et al. ,2017,2040,Tunisia,2016-€ / MWh,26.92,Higher Heating Value
+,,,,,,,
+World Bank – 450 scenario,WBG et al. ,2017,2015,Tunisia,2016-€ / MWh,19.61,Higher Heating Value
+World Bank – 450 scenario,WBG et al. ,2017,2020,Tunisia,2016-€ / MWh,16.37,Higher Heating Value
+World Bank – 450 scenario,WBG et al. ,2017,2025,Tunisia,2016-€ / MWh,18.33,Higher Heating Value
+World Bank – 450 scenario,WBG et al. ,2017,2030,Tunisia,2016-€ / MWh,20.56,Higher Heating Value
+World Bank – 450 scenario,WBG et al. ,2017,2035,Tunisia,2016-€ / MWh,20.02,Higher Heating Value
+World Bank – 450 scenario,WBG et al. ,2017,2040,Tunisia,2016-€ / MWh,19.48,Higher Heating Value
+,,,,,,,
+World Bank – Low oil price scenario,WBG et al. ,2017,2015,Tunisia,2016-€ / MWh,19.61,Higher Heating Value
+World Bank – Low oil price scenario,WBG et al. ,2017,2020,Tunisia,2016-€ / MWh,13.46,Higher Heating Value
+World Bank – Low oil price scenario,WBG et al. ,2017,2025,Tunisia,2016-€ / MWh,16.50,Higher Heating Value
+World Bank – Low oil price scenario,WBG et al. ,2017,2030,Tunisia,2016-€ / MWh,20.22,Higher Heating Value
+World Bank – Low oil price scenario,WBG et al. ,2017,2035,Tunisia,2016-€ / MWh,22.93,Higher Heating Value
+World Bank – Low oil price scenario,WBG et al. ,2017,2040,Tunisia,2016-€ / MWh,25.97,Higher Heating Value
+,,,,,,,
+E&M Systems – Lower Limit STEG,"Energy & Meteo Systems, p. 30",2013,2010,Tunisia,,,
+E&M Systems – Lower Limit STEG,"Energy & Meteo Systems, p. 30",2013,2015,Tunisia,2016-€ / MWh,35.01,
+E&M Systems – Lower Limit STEG,"Energy & Meteo Systems, p. 30",2013,2020,Tunisia,2016-€ / MWh,33.68,
+E&M Systems – Lower Limit STEG,"Energy & Meteo Systems, p. 30",2013,2025,Tunisia,2016-€ / MWh,32.33,
+E&M Systems – Lower Limit STEG,"Energy & Meteo Systems, p. 30",2013,2030,Tunisia,2016-€ / MWh,31.00,
+Extrapolation,,,2035,,,29.72,
+Extrapolation,,,2040,,,28.50,
+,,,,,,,
+E&M Systems – Medium STEG ,"Energy & Meteo Systems, p. 30",2013,2010,Tunisia,2016-€ / MWh,24.88,
+E&M Systems – Medium STEG ,"Energy & Meteo Systems, p. 30",2013,2015,Tunisia,2016-€ / MWh,37.36,
+E&M Systems – Medium STEG ,"Energy & Meteo Systems, p. 30",2013,2020,Tunisia,2016-€ / MWh,41.76,
+E&M Systems – Medium STEG ,"Energy & Meteo Systems, p. 30",2013,2025,Tunisia,2016-€ / MWh,43.33,
+E&M Systems – Medium STEG ,"Energy & Meteo Systems, p. 30",2013,2030,Tunisia,2016-€ / MWh,44.91,
+Extrapolation,,,2035,,,46.55,
+Extrapolation,,,2040,,,48.25,
+,,,,,,,
+E&M Systems – Upper Limit STEG,"Energy & Meteo Systems, p. 30",2013,2010,Tunisia,,,
+E&M Systems – Upper Limit STEG,"Energy & Meteo Systems, p. 30",2013,2015,Tunisia,2016-€ / MWh,38.62,
+E&M Systems – Upper Limit STEG,"Energy & Meteo Systems, p. 30",2013,2020,Tunisia,2016-€ / MWh,45.86,
+E&M Systems – Upper Limit STEG,"Energy & Meteo Systems, p. 30",2013,2025,Tunisia,2016-€ / MWh,53.11,
+E&M Systems – Upper Limit STEG,"Energy & Meteo Systems, p. 30",2013,2030,Tunisia,2016-€ / MWh,60.35,
+Extrapolation,,,2035,,,68.57,
+Extrapolation,,,2040,,,77.91,

@@ -1,0 +1,14 @@
+scenario_type,scneario_name,area_aggregated
+scenario_area,,
+scenario_capacity_restrictions,,
+scenario_demand,,
+scenario_efficiency,,
+scenario_emission,,
+scenario_fuel_cost,,
+scenario_policy_target,,
+scenario_power_plant_cost,,
+scenario_reserve_margin,,
+scenario_set_emission,,
+scenario_set_fuel,,
+scenario_storage_cost,scenario_storage_csp_test,TUNISIA
+scenario_time,,

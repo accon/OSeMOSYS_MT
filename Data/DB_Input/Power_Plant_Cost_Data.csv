@@ -1,0 +1,162 @@
+,,,,,
+,,,,,
+Source,,Technology,,All prices are in €2016,
+,,,,,
+,,PV,,,
+Technology,Modeling Year,Capital Cost in k€/MW,O&M fix cost in k€/(MW*a),Variable cost (including fuel cost) in k€/MWh,Scenario
+wind_onshore,2015,1500,25,0.01,BAU
+wind_onshore,2020,1310,25,0.01,BAU
+wind_onshore,2025,1210,25,0.01,BAU
+wind_onshore,2030,1110,25,0.01,BAU
+wind_onshore,2035,1055,25,0.01,BAU
+wind_onshore,2040,1000,25,0.01,BAU
+pv_utility_scale,2015,1780,12,0,BAU
+pv_utility_scale,2020,1600,12,0,BAU
+pv_utility_scale,2025,1500,12,0,BAU
+pv_utility_scale,2030,1400,12,0,BAU
+pv_utility_scale,2035,1350,12,0,BAU
+pv_utility_scale,2040,1300,12,0,BAU
+steam_turbine,2015,650,12,0.0516,BAU (current policies scenario)
+steam_turbine,2020,650,12,0.0459,BAU (current policies scenario)
+steam_turbine,2025,650,12,0.0557,BAU (current policies scenario)
+steam_turbine,2030,650,12,0.0675,BAU (current policies scenario)
+steam_turbine,2035,650,12,0.0708,BAU (current policies scenario)
+steam_turbine,2040,650,12,0.0744,BAU (current policies scenario)
+ocgt,2015,550,8,0.0681,BAU (current policies scenario)
+ocgt,2020,550,8,0.0572,BAU (current policies scenario)
+ocgt,2025,550,8,0.0665,BAU (current policies scenario)
+ocgt,2030,550,8,0.0777,BAU (current policies scenario)
+ocgt,2035,550,8,0.0773,BAU (current policies scenario)
+ocgt,2040,550,8,0.0771,BAU (current policies scenario)
+ccgt,2015,800,15,0.0355,BAU (current policies scenario)
+ccgt,2020,800,15,0.0313,BAU (current policies scenario)
+ccgt,2025,800,15,0.0379,BAU (current policies scenario)
+ccgt,2030,800,15,0.0459,BAU (current policies scenario)
+ccgt,2035,800,15,0.0482,BAU (current policies scenario)
+ccgt,2040,800,15,0.0505,BAU (current policies scenario)
+hydro_ror,2015,1570,40,0.0000,BAU
+hydro_ror,2020,1570,40,0.0000,BAU
+hydro_ror,2025,1570,40,0.0000,BAU
+hydro_ror,2030,1570,40,0.0000,BAU
+hydro_ror,2035,1570,40,0.0000,BAU
+hydro_ror,2040,1570,40,0.0000,BAU
+hydro_stor,2015,610,33,0.0000,BAU
+hydro_stor,2020,610,33,0.0000,BAU
+hydro_stor,2025,610,33,0.0000,BAU
+hydro_stor,2030,610,33,0.0000,BAU
+hydro_stor,2035,610,33,0.0000,BAU
+hydro_stor,2040,610,33,0.0000,BAU
+supply_natural_gas,2015,0,0,0,BAU
+supply_natural_gas,2020,0,0,0,BAU
+supply_natural_gas,2025,0,0,0,BAU
+supply_natural_gas,2030,0,0,0,BAU
+supply_natural_gas,2035,0,0,0,BAU
+supply_natural_gas,2040,0,0,0,BAU
+backup_electricity,2015,999999999,999999999,999999999,BAU
+backup_electricity,2020,999999999,999999999,999999999,BAU
+backup_electricity,2025,999999999,999999999,999999999,BAU
+backup_electricity,2030,999999999,999999999,999999999,BAU
+backup_electricity,2035,999999999,999999999,999999999,BAU
+backup_electricity,2040,999999999,999999999,999999999,BAU
+csp_collector,2015,1410,20,0.0003,BAU
+csp_collector,2020,1310,20,0.0003,BAU
+csp_collector,2025,1270,20,0.0003,BAU
+csp_collector,2030,1190,20,0.0003,BAU
+csp_collector,2035,1100,20,0.0003,BAU
+csp_collector,2040,1000,20,0.0003,BAU
+csp_gas_firing,2015,1410,20,0.0519,BAU
+csp_gas_firing,2020,1310,20,0.0462,BAU
+csp_gas_firing,2025,1270,20,0.0560,BAU
+csp_gas_firing,2030,1190,20,0.0678,BAU
+csp_gas_firing,2035,1100,20,0.0712,BAU
+csp_gas_firing,2040,1000,20,0.0747,BAU
+csp_steam_turbine,2015,1410,20,0.0003,BAU
+csp_steam_turbine,2020,1310,20,0.0003,BAU
+csp_steam_turbine,2025,1270,20,0.0003,BAU
+csp_steam_turbine,2030,1190,20,0.0003,BAU
+csp_steam_turbine,2035,1100,20,0.0003,BAU
+csp_steam_turbine,2040,1000,20,0.0003,BAU
+pv_decentralized,2015,2630,12,0.0000,BAU
+pv_decentralized,2020,1750,12,0.0000,BAU
+pv_decentralized,2025,1460,12,0.0000,BAU
+pv_decentralized,2030,1170,12,0.0000,BAU
+pv_decentralized,2035,1090,12,0.0000,BAU
+pv_decentralized,2040,1000,12,0.0000,BAU
+battery_converter,2015,122,16,0.0850,BAU
+battery_converter,2020,89,14,0.0850,BAU
+battery_converter,2025,75,8,0.0060,BAU
+battery_converter,2030,66,6,0.0050,BAU
+battery_converter,2035,63,5,0.0040,BAU
+battery_converter,2040,61,5,0.0040,BAU
+steam_turbine,2015,650,12,0.0516,BAU (new policies scenario)
+steam_turbine,2020,650,12,0.0447,BAU (new policies scenario)
+steam_turbine,2025,650,12,0.0520,BAU (new policies scenario)
+steam_turbine,2030,650,12,0.0609,BAU (new policies scenario)
+steam_turbine,2035,650,12,0.0639,BAU (new policies scenario)
+steam_turbine,2040,650,12,0.0673,BAU (new policies scenario)
+ocgt,2015,550,8,0.0681,BAU (new policies scenario)
+ocgt,2020,550,8,0.0557,BAU (new policies scenario)
+ocgt,2025,550,8,0.0624,BAU (new policies scenario)
+ocgt,2030,550,8,0.0703,BAU (new policies scenario)
+ocgt,2035,550,8,0.0700,BAU (new policies scenario)
+ocgt,2040,550,8,0.0700,BAU (new policies scenario)
+ccgt,2015,800,15,0.0355,BAU (new policies scenario)
+ccgt,2020,800,15,0.0305,BAU (new policies scenario)
+ccgt,2025,800,15,0.0355,BAU (new policies scenario)
+ccgt,2030,800,15,0.0416,BAU (new policies scenario)
+ccgt,2035,800,15,0.0436,BAU (new policies scenario)
+ccgt,2040,800,15,0.0458,BAU (new policies scenario)
+csp_gas_firing,2015,1410,20,0.0519,BAU (new policies scenario)
+csp_gas_firing,2020,1310,20,0.0450,BAU (new policies scenario)
+csp_gas_firing,2025,1270,20,0.0524,BAU (new policies scenario)
+csp_gas_firing,2030,1190,20,0.0612,BAU (new policies scenario)
+csp_gas_firing,2035,1100,20,0.0642,BAU (new policies scenario)
+csp_gas_firing,2040,1000,20,0.0676,BAU (new policies scenario)
+steam_turbine,2015,650,12,0.0516,BAU (450 scenario)
+steam_turbine,2020,650,12,0.0431,BAU (450 scenario)
+steam_turbine,2025,650,12,0.0470,BAU (450 scenario)
+steam_turbine,2030,650,12,0.0514,BAU (450 scenario)
+steam_turbine,2035,650,12,0.0500,BAU (450 scenario)
+steam_turbine,2040,650,12,0.0487,BAU (450 scenario)
+ocgt,2015,550,8,0.0681,BAU (450 scenario)
+ocgt,2020,550,8,0.0538,BAU (450 scenario)
+ocgt,2025,550,8,0.0566,BAU (450 scenario)
+ocgt,2030,550,8,0.0598,BAU (450 scenario)
+ocgt,2035,550,8,0.0554,BAU (450 scenario)
+ocgt,2040,550,8,0.0514,BAU (450 scenario)
+ccgt,2015,800,15,0.0355,BAU (450 scenario)
+ccgt,2020,800,15,0.0294,BAU (450 scenario)
+ccgt,2025,800,15,0.0322,BAU (450 scenario)
+ccgt,2030,800,15,0.0354,BAU (450 scenario)
+ccgt,2035,800,15,0.0345,BAU (450 scenario)
+ccgt,2040,800,15,0.0336,BAU (450 scenario)
+csp_gas_firing,2015,1410,20,0.0519,BAU (450 scenario)
+csp_gas_firing,2020,1310,20,0.0434,BAU (450 scenario)
+csp_gas_firing,2025,1270,20,0.0473,BAU (450 scenario)
+csp_gas_firing,2030,1190,20,0.0517,BAU (450 scenario)
+csp_gas_firing,2035,1100,20,0.0504,BAU (450 scenario)
+csp_gas_firing,2040,1000,20,0.0490,BAU (450 scenario)
+steam_turbine,2015,650,12,0.0516,BAU (low oil price scenario)
+steam_turbine,2020,650,12,0.0354,BAU (low oil price scenario)
+steam_turbine,2025,650,12,0.0423,BAU (low oil price scenario)
+steam_turbine,2030,650,12,0.0506,BAU (low oil price scenario)
+steam_turbine,2035,650,12,0.0573,BAU (low oil price scenario)
+steam_turbine,2040,650,12,0.0649,BAU (low oil price scenario)
+ocgt,2015,550,8,0.0681,BAU (low oil price scenario)
+ocgt,2020,550,8,0.0448,BAU (low oil price scenario)
+ocgt,2025,550,8,0.0512,BAU (low oil price scenario)
+ocgt,2030,550,8,0.0589,BAU (low oil price scenario)
+ocgt,2035,550,8,0.0630,BAU (low oil price scenario)
+ocgt,2040,550,8,0.0676,BAU (low oil price scenario)
+ccgt,2015,800,15,0.0355,BAU (low oil price scenario)
+ccgt,2020,800,15,0.0245,BAU (low oil price scenario)
+ccgt,2025,800,15,0.0292,BAU (low oil price scenario)
+ccgt,2030,800,15,0.0348,BAU (low oil price scenario)
+ccgt,2035,800,15,0.0393,BAU (low oil price scenario)
+ccgt,2040,800,15,0.0443,BAU (low oil price scenario)
+csp_gas_firing,2015,1410,20,0.0519,BAU (low oil price scenario)
+csp_gas_firing,2020,1310,20,0.0357,BAU (low oil price scenario)
+csp_gas_firing,2025,1270,20,0.0426,BAU (low oil price scenario)
+csp_gas_firing,2030,1190,20,0.0509,BAU (low oil price scenario)
+csp_gas_firing,2035,1100,20,0.0576,BAU (low oil price scenario)
+csp_gas_firing,2040,1000,20,0.0653,BAU (low oil price scenario)
